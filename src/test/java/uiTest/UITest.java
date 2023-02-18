@@ -2,19 +2,13 @@ package uiTest;
 
 import model.XpathLocators;
 import org.junit.jupiter.api.*;
-
-import static com.codeborne.selenide.Condition.attribute;
 import static com.codeborne.selenide.Condition.visible;
-import static com.codeborne.selenide.Selenide.*;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class LoginPageTest {
+@DisplayName("UI тесты. Интернет банк")
+public class UITest extends BaseTest{
     XpathLocators xpath = new XpathLocators();
 
-    @BeforeEach
-    public void setUp() {
-        open("https://idemo.bspb.ru/auth?response_type=code&client_id=1&redirect_uri=https%3A%2F%2Fidemo.bspb.ru%2Flogin%2Fsuccess&prefetch_uri=https%3A%2F%2Fidemo.bspb.ru%2Flogin%2Fprefetch&force_new_session=true");
-    }
 
     @Test
     @Order(1)
@@ -36,8 +30,19 @@ public class LoginPageTest {
         xpath.SelectGoldCard.click();
         xpath.InputAmountForCard.val("194").pressEnter();
         xpath.CheckboxAgreeRules.click();
-        $x("/html/body/form/div[2]/div[2]/input").val("0000").pressEnter();
-        xpath.AlertSuccessfulOperation.shouldBe(visible);
+        xpath.OTPInput.val("0000").pressEnter();
+
+    }
+
+    @Test
+    @Order(3)
+    @DisplayName("Смена аватара")
+    public void avatarChange() {
+        login();
+        xpath.UserAvatar.click();
+        xpath.InputGreeting.val("Привет мир!!!");
+        xpath.NewUserAvatar.click();
+        xpath.ButtonSaveNewAvatar.click();
     }
 
 }
