@@ -18,13 +18,16 @@ public class XpathLocators {
     public SelenideElement SelectGoldCard = $x("//select[@name='data.fromCardId']/option[2]");
     public SelenideElement CheckboxAgreeRules = $x("//input[@name='condition.generalConditions']");
     public SelenideElement AlertSuccessfulOperation = $x("//*[contains(@class, 'alert-success')]");
-    public SelenideElement OTPInput = $x("//html/body/form/div[2]/div[2]/input");
-    public SelenideElement ButtonConfirm = $x("//*[@id='confirm']");
+    public SelenideElement OTPInput = $x("//*[@id=\"otp-input\"]");
+    public SelenideElement RefillError = $x("//input[contains(@class, 'error')]");
     public SelenideElement UserAvatar = $x("//a[@id='user-avatar']");
     public SelenideElement NewUserAvatar = $x("//*[@id='avatars']/img[24]");
     public SelenideElement ButtonSaveNewAvatar = $x("//button[@id='submit-button']");
     public SelenideElement InputGreeting = $x("//*[@name='greeting']");
     public SelenideElement AlertError = $x("//div[contains(@class, 'alert-error')]");
-
-
+    public SelenideElement PaymentsAndTransfers = $x("//a[@id='payments-form']");
+    public SelenideElement LinkGIBDD = $x("//a[@href='/gisgmp/traffic?subscriptionId=10432']");
+    public SelenideElement InputVehicleRegistrationCertificate = $x("//input[@name='vehicleRegistrationCertificate']");
+    public SelenideElement PayLastFine = $x("//table/tbody/tr[1]/td[4]/a");
+    public SelenideElement ButtonForward = $x("//button[@id='forward']");
 }
