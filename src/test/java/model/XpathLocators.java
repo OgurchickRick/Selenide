@@ -8,5 +8,5 @@ import static com.codeborne.selenide.Selenide.$x;
 public class XpathLocators {
 
     public SelenideElement AlertError = $x("//div[contains(@class, 'alert-error')]");
-
+    public SelenideElement AlertSuccess = $x("//div[contains(@class, 'alert-succes')]");
 }
