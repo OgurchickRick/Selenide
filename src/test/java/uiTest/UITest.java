@@ -1,7 +1,7 @@
 package uiTest;
 
 import com.codeborne.selenide.Selenide;
-import model.XpathLocators;
+import model.*;
 import org.junit.jupiter.api.*;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$x;
@@ -10,15 +10,20 @@ import static com.codeborne.selenide.Selenide.$x;
 @DisplayName("UI тесты. Интернет банк")
 public class UITest extends BaseTest{
     XpathLocators xpath = new XpathLocators();
+    LoginPage loginPage = new LoginPage();
+    MainPage mainPage = new MainPage();
+    CardsPage cardsPage = new CardsPage();
+    SettingsPage settingsPage = new SettingsPage();
+    PaymentsAndTransfersPage paymentsAndTransfersPage = new PaymentsAndTransfersPage();
 
 
     @Test
     @Order(1)
-    @DisplayName("Авторизация")
+    @DisplayName("Авторизация с валидным логином и паролем")
     public void login() {
-        xpath.InputUserName.val("demo").pressTab().val("demo").pressEnter();
-        xpath.InputConfirmationCode.val("0000").pressEnter();
-        xpath.IconClose.shouldBe(visible);
+        loginPage.InputUserName.val("demo").pressTab().val("demo").pressEnter();
+        loginPage.InputConfirmationCode.val("0000").pressEnter();
+        mainPage.IconClose.shouldBe(visible);
     }
 
     @Test
@@ -26,15 +31,15 @@ public class UITest extends BaseTest{
     @DisplayName("Пополнение счёта > 100")
     public void refillSuccess() {
         login();
-        xpath.MenuItemCards.click();
-        xpath.LinkCardPayments.click();
-        xpath.WriteOffCard.click();
-        xpath.SelectGoldCard.click();
-        xpath.InputAmountForCard.val("194").pressEnter();
-        xpath.CheckboxAgreeRules.click();
+        mainPage.MenuItemCards.click();
+        cardsPage.LinkCardPayments.click();
+        cardsPage.WriteOffCard.click();
+        cardsPage.SelectGoldCard.click();
+        cardsPage.InputAmountForCard.val("194").pressEnter();
+        cardsPage.CheckboxAgreeRules.click();
         Selenide.switchTo().frame("confirmation-frame");
-        xpath.OTPInput.val("0000").pressEnter();
-        xpath.AlertSuccessfulOperation.shouldBe(visible);
+        cardsPage.OTPInput.val("0000").pressEnter();
+        cardsPage.AlertSuccessfulOperation.shouldBe(visible);
     }
 
     @Test
@@ -42,12 +47,12 @@ public class UITest extends BaseTest{
     @DisplayName("Пополнение счёта < 100")
     public void refillFalse() {
         login();
-        xpath.MenuItemCards.click();
-        xpath.LinkCardPayments.click();
-        xpath.WriteOffCard.click();
-        xpath.SelectGoldCard.click();
-        xpath.InputAmountForCard.val("45").pressEnter();
-        xpath.RefillError.shouldBe(visible);
+        mainPage.MenuItemCards.click();
+        cardsPage.LinkCardPayments.click();
+        cardsPage.WriteOffCard.click();
+        cardsPage.SelectGoldCard.click();
+        cardsPage.InputAmountForCard.val("45").pressEnter();
+        cardsPage.RefillError.shouldBe(visible);
     }
 
     @Test
@@ -55,11 +60,11 @@ public class UITest extends BaseTest{
     @DisplayName("Смена аватара")
     public void avatarChange() {
         login();
-        xpath.UserAvatar.click();
+        mainPage.UserAvatar.click();
         Selenide.switchTo().frame($x("//iframe[@class='full-page']"));
-        xpath.InputGreeting.val("Привет мир!!!");
-        xpath.NewUserAvatar.click();
-        xpath.ButtonSaveNewAvatar.click();
+        settingsPage.InputGreeting.val("Привет мир!!!");
+        settingsPage.NewUserAvatar.click();
+        settingsPage.ButtonSaveNewAvatar.click();
         xpath.AlertError.shouldBe(visible);
     }
 
@@ -68,11 +73,11 @@ public class UITest extends BaseTest{
     @DisplayName("Проверка и оплата последнего штрафа")
     public void checkingAndPayLastFines() {
         login();
-        xpath.PaymentsAndTransfers.click();
-        xpath.LinkGIBDD.click();
-        xpath.InputVehicleRegistrationCertificate.val("78 ХС 471014").pressEnter();
-        xpath.PayLastFine.click();
-        xpath.ButtonForward.click();
+        mainPage.MenuItemPaymentsAndTransfers.click();
+        paymentsAndTransfersPage.LinkGIBDD.click();
+        paymentsAndTransfersPage.InputVehicleRegistrationCertificate.val("78 ХС 471014").pressEnter();
+        paymentsAndTransfersPage.PayLastFine.click();
+        paymentsAndTransfersPage.ButtonForward.click();
         xpath.AlertError.shouldBe(visible);
     }
 
