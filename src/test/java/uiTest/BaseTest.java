@@ -1,13 +1,15 @@
 package uiTest;
 
-import com.codeborne.selenide.Configuration;
+import com.codeborne.selenide.Selenide;
 import methods.Authorization;
 import org.junit.jupiter.api.BeforeEach;
+import org.testng.annotations.AfterMethod;
 import pages.*;
+import service.webDriverSettings.Driver;
 
 import static com.codeborne.selenide.Selenide.open;
 
-public class BaseTest {
+abstract public class BaseTest {
 
     Authorization auth = new Authorization();
     XpathLocators xpath = new XpathLocators();
@@ -16,19 +18,18 @@ public class BaseTest {
     CardsPage cardsPage = new CardsPage();
     SettingsPage settingsPage = new SettingsPage();
     PaymentsAndTransfersPage paymentsAndTransfersPage = new PaymentsAndTransfersPage();
+    Driver driver = new Driver();
 
-    public void setUp() {
-        Configuration.timeout = 10000;
-        Configuration.browserSize = "1920x1080";
-        Configuration.browserPosition = "0x0";
-        Configuration.screenshots = false;
-        open("https://idemo.bspb.ru/");
-
-    }
 
 
     @BeforeEach
     public void initTest() {
-        setUp();
+        driver.initDriver();
+        open("https://idemo.bspb.ru/");
+    }
+
+    @AfterMethod
+    public void tearDown() {
+        Selenide.closeWebDriver();
     }
 }

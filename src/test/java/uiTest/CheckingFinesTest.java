@@ -16,6 +16,7 @@ public class CheckingFinesTest extends BaseTest{
         mainPage.menuItemPaymentsAndTransfers.click();
         paymentsAndTransfersPage.linkGIBDD.click();
         paymentsAndTransfersPage.inputVehicleRegistrationCertificate.val("78 ХС 471014").pressEnter();
+        paymentsAndTransfersPage.checkFines.click();
         paymentsAndTransfersPage.payLastFine.click();
         paymentsAndTransfersPage.buttonForward.click();
         xpath.alertError.shouldBe(visible);
