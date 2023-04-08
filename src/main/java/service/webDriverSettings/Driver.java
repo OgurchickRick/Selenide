@@ -7,7 +7,7 @@ public class Driver {
 
     public void initDriver() {
         Configuration.browser = Browsers.CHROME;
-        Configuration.timeout = 1000;
+        Configuration.timeout = 10000;
         Configuration.browserSize = "1920x1080";
         Configuration.headless = true;
         Configuration.screenshots = false;

@@ -1,6 +1,8 @@
 package uiTest;
 
 import org.junit.jupiter.api.*;
+import steps.LoginSteps;
+
 import static com.codeborne.selenide.Condition.visible;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -11,8 +13,9 @@ public class LoginTest extends BaseTest{
     @Order(1)
     @DisplayName("Авторизация с валидным логином и паролем")
     public void loginValid() {
-        loginPage.inputUserName.val("demo").pressTab().val("demo").pressEnter();
-        loginPage.inputConfirmationCode.val("0000").pressEnter();
+        LoginSteps.authorization("demo", "demo");
+        loginPage.buttonLogin.click();
+        loginPage.inputConfirmationCode.setValue("0000").pressEnter();
         mainPage.iconClose.shouldBe(visible);
     }
 
@@ -20,7 +23,8 @@ public class LoginTest extends BaseTest{
     @Order(2)
     @DisplayName("Авторизация с не валидным логином и паролем")
     public void loginNoValidPassword() {
-        loginPage.inputUserName.val("admin").pressTab().val("admin").pressEnter();
+        LoginSteps.authorization("admin", "admin");
+        loginPage.buttonLogin.click();
         xpath.alertError.shouldBe(visible);
     }
 
@@ -28,8 +32,9 @@ public class LoginTest extends BaseTest{
     @Order(3)
     @DisplayName("Авторизация с не валидным кодом подтверждения")
     public void loginNoValidConfirmationCode() {
-        loginPage.inputUserName.val("demo").pressTab().val("demo").pressEnter();
-        loginPage.inputConfirmationCode.val("1111").pressEnter();
+        LoginSteps.authorization("demo", "demo");
+        loginPage.buttonLogin.click();
+        loginPage.inputConfirmationCode.setValue("1111").pressEnter();
         xpath.alertError.shouldBe(visible);
     }
 }
