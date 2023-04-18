@@ -2,12 +2,9 @@ package uiTest;
 
 import com.codeborne.selenide.Selenide;
 import methods.Authorization;
-import org.junit.jupiter.api.BeforeEach;
-import org.testng.annotations.AfterMethod;
+import org.testng.annotations.*;
 import pages.*;
 import service.webDriverSettings.Driver;
-
-import static com.codeborne.selenide.Selenide.open;
 
 abstract public class BaseTest {
 
@@ -22,10 +19,10 @@ abstract public class BaseTest {
 
 
 
-    @BeforeEach
+    @BeforeMethod
     public void initTest() {
         driver.initDriver();
-        open("https://idemo.bspb.ru/");
+        Selenide.open("https://idemo.bspb.ru/");
     }
 
     @AfterMethod

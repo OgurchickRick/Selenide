@@ -1,16 +1,12 @@
 package uiTest;
 
-import org.junit.jupiter.api.*;
+import org.testng.annotations.Test;
 
 import static com.codeborne.selenide.Condition.visible;
 
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-@DisplayName("UI тесты. Проверка штрафов")
 public class CheckingFinesTest extends BaseTest{
 
-    @Test
-    @Order(1)
-    @DisplayName("Проверка и оплата последнего штрафа")
+    @Test(description = "Проверка и оплата последнего штрафа")
     public void checkingAndPayLastFines() {
         auth.authorization();
         mainPage.menuItemPaymentsAndTransfers.click();

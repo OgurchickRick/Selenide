@@ -1,17 +1,13 @@
 package uiTest;
 
 import com.codeborne.selenide.Selenide;
-import org.junit.jupiter.api.*;
+import org.testng.annotations.Test;
 
 import static com.codeborne.selenide.Condition.visible;
 
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-@DisplayName("UI тесты. Пополнение счёта")
 public class RefillTest extends  BaseTest{
 
-    @Test
-    @Order(1)
-    @DisplayName("Пополнение счёта > 100")
+    @Test(description = "Пополнение счёта > 100")
     public void refillSuccess() {
         auth.authorization();
         mainPage.menuItemCards.click();
@@ -25,9 +21,7 @@ public class RefillTest extends  BaseTest{
         cardsPage.alertSuccessfulOperation.shouldBe(visible);
     }
 
-    @Test
-    @Order(2)
-    @DisplayName("Пополнение счёта - пограничное значение")
+    @Test(description = "Пополнение счёта - пограничное значение")
     public void refillFalse() {
         auth.authorization();
         mainPage.menuItemCards.click();
@@ -38,9 +32,7 @@ public class RefillTest extends  BaseTest{
         cardsPage.refillError.shouldBe(visible);
     }
 
-    @Test
-    @Order(3)
-    @DisplayName("Пополнение счёта < 100")
+    @Test(description = "Пополнение счёта < 100")
     public void refillFalse2() {
         auth.authorization();
         mainPage.menuItemCards.click();

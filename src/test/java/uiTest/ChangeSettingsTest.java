@@ -1,18 +1,15 @@
 package uiTest;
 
 import com.codeborne.selenide.Selenide;
-import org.junit.jupiter.api.*;
+import org.testng.annotations.Test;
 
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$x;
 
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-@DisplayName("UI тесты. Изменение настроек")
+
 public class ChangeSettingsTest extends BaseTest{
 
-    @Test
-    @Order(1)
-    @DisplayName("Смена аватара")
+    @Test(description = "Смена аватара")
     public void avatarChange() {
         auth.authorization();
         mainPage.userAvatar.click();
@@ -23,9 +20,7 @@ public class ChangeSettingsTest extends BaseTest{
         xpath.alertError.shouldBe(visible);
     }
 
-    @Test
-    @Order(2)
-    @DisplayName("Смена пин кода")
+    @Test(description = "Смена пин кода")
     public void ChangePinCode() {
         auth.authorization();
         mainPage.menuItemCards.click();
